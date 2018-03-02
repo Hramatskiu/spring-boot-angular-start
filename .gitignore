@@ -12,6 +12,10 @@ bin
 *.jar
 *.war
 *.ear
+node_modules/
+bower_components/
+static/js/
+static/views/
 .DS_Store
 
 

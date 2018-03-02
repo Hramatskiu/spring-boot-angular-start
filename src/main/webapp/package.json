@@ -1,0 +1,23 @@
+{
+  "name": "health-tool",
+  "version": "0.0.1",
+  "scripts": {
+    "gulp_default": "gulp default",
+    "bower_install": "bower install"
+  },
+  "dependencies": {
+    "bower": "1.8.0",
+    "main-bower-files": "2.13.1",
+    "gulp": "3.9.1",
+    "gulp-concat": "2.6.1",
+    "gulp-concat-vendor": "0.0.4",
+    "gulp-inject": "4.2.0",
+    "gulp-install": "0.6.0",
+    "run-sequence": "1.2.2",
+    "stream-series": "0.1.1",
+    "gulp-angular-templatecache": "2.0.0"
+  },
+  "description": "Health checker tool",
+  "repository": "https://github.com/any/url",
+  "license": "MIT"
+}

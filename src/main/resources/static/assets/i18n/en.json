@@ -1,0 +1,10 @@
+{
+  "menu" : {
+    "brand" : "HEALTH CHECKER TOOL",
+    "lang" : {
+      "lang" : "Language",
+      "ru" : "Russian",
+      "en" : "English"
+    }
+  }
+}

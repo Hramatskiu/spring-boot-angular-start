@@ -1,74 +1,101 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.epam</groupId>
-    <artifactId>spring-boot-angular-start</artifactId>
-    <version>1.0-SNAPSHOT</version>
+	<groupId>com.epam</groupId>
+	<artifactId>spring-boot-angular-start</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>1.8</java.version>
-        <node.version>6.10.0</node.version>
-        <npm.version>4.4.4</npm.version>
-        <frontend-maven-plugin.version>1.6</frontend-maven-plugin.version>
-    </properties>
+	<name>spring-boot-angular-start</name>
+	<description>Spring Boot Angular start</description>
 
-    <dependencies>
-        <dependency>
-            <groupId>com.github.eirslett</groupId>
-            <artifactId>frontend-maven-plugin</artifactId>
-            <version>${frontend-maven-plugin.version}</version>
-        </dependency>
-    </dependencies>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+		<node.version>6.10.0</node.version>
+		<npm.version>4.4.4</npm.version>
+		<frontend-maven-plugin.version>1.6</frontend-maven-plugin.version>
+		<org.springframework.boot>2.0.0.RELEASE</org.springframework.boot>
+	</properties>
 
-    <build>
-        <plugins>
-            <!--<plugin>-->
-                <!--<groupId>org.springframework.boot</groupId>-->
-                <!--<artifactId>spring-boot-maven-plugin</artifactId>-->
-            <!--</plugin>-->
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<version>${org.springframework.boot}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.session</groupId>
+			<artifactId>spring-session-core</artifactId>
+			<version>${org.springframework.boot}</version>
+		</dependency>
 
-            <plugin>
-                <groupId>com.github.eirslet</groupId>
-                <artifactId>frontend-maven-plugin</artifactId>
-                <version>${frontend-maven-plugin.version}</version>
-                <configuration>
-                    <workingDirectory>src/main/webapp</workingDirectory>
-                    <nodeVersion>${node.version}</nodeVersion>
-                    <npmVersion>${npm.version}</npmVersion>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>install node and npm</id>
-                        <goals>
-                            <goal>install-node-and-npm</goal>
-                        </goals>
-                        <phase>generate-resources</phase>
-                    </execution>
-                    <execution>
-                        <id>npm install</id>
-                        <goals>
-                            <goal>npm</goal>
-                        </goals>
-                        <phase>generate-resources</phase>
-                    </execution>
-                    <execution>
-                        <id>webpack main build</id>
-                        <goals>
-                            <goal>webpack</goal>
-                        </goals>
-                        <phase>generate-resources</phase>
-                        <configuration>
-                            <arguments>-d --display-modules --config webpack.config.js</arguments>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<version>${org.springframework.boot}</version>
+			<scope>test</scope>
+		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/com.github.eirslett/frontend-maven-plugin -->
+		<dependency>
+			<groupId>com.github.eirslett</groupId>
+			<artifactId>frontend-maven-plugin</artifactId>
+			<version>1.6</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>${org.springframework.boot}</version>
+			</plugin>
+			<plugin>
+				<groupId>com.github.eirslet</groupId>
+				<artifactId>frontend-maven-plugin</artifactId>
+				<version>${frontend-maven-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>install node and npm</id>
+						<goals>
+							<goal>install-node-and-npm</goal>
+						</goals>
+						<phase>generate-resources</phase>
+						<configuration>
+							<nodeVersion>${node.version}</nodeVersion>
+							<npmVersion>${npm.version}</npmVersion>
+						</configuration>
+					</execution>
+					<execution>
+						<id>npm install</id>
+						<goals>
+							<goal>npm</goal>
+						</goals>
+						<phase>generate-resources</phase>
+					</execution>
+					<execution>
+						<id>bower install</id>
+						<goals>
+							<goal>bower</goal>
+						</goals>
+						<configuration>
+							<arguments>install</arguments>
+						</configuration>
+					</execution>
+					<execution>
+						<id>gulp build</id>
+						<goals>
+							<goal>gulp</goal>
+						</goals>
+						<phase>generate-resources</phase>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 </project>
