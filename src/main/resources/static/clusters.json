@@ -5,6 +5,12 @@
       "host": "",
       "username": "admin",
       "password": "admin"
+    },
+    {
+      "name": "CDH512Unsecure",
+      "host": "somehost",
+      "username": "admin",
+      "password": "admin"
     }
   ]
 }

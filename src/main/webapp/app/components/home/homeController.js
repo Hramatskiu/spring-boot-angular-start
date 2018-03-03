@@ -10,4 +10,11 @@ webApp.controller("homeController", ['$scope', 'clustersService', function($scop
     $scope.editCluster = function() {
         //stub
     }
+
+    $scope.checkClusterHealth = function() {
+        $('#healthCheckResult').modal('show');
+        $scope.clusterHealth = {
+            status: "Good"
+        }
+    }
 }]);
