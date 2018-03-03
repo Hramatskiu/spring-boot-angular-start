@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "scripts": {
     "gulp_default": "gulp default",
+    "gulp_dev_default": "gulp default-build",
     "bower_install": "bower install"
   },
   "dependencies": {

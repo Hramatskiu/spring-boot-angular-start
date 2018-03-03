@@ -1,0 +1,10 @@
+{
+  "clusters": [
+    {
+      "name": "CDH513Unsecure",
+      "host": "",
+      "username": "admin",
+      "password": "admin"
+    }
+  ]
+}

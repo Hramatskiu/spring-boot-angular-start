@@ -8,7 +8,7 @@ webApp.config(function ($routeProvider, $translateProvider) {
     $routeProvider.when('/home',
         {
             templateUrl: 'views/components/home/home.html',
-            controller: 'mainController'
+            controller: 'homeController'
         }
     );
 

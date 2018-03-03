@@ -6,5 +6,11 @@
       "ru" : "Russian",
       "en" : "English"
     }
+  },
+  "home" : {
+    "button" : {
+      "check" : "Check cluster"
+    }
   }
+
 }
