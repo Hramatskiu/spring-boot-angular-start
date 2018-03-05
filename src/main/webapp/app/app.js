@@ -11,6 +11,12 @@ webApp.config(function ($routeProvider, $translateProvider) {
             controller: 'homeController'
         }
     );
+    $routeProvider.when('/cluster/:id',
+            {
+                templateUrl: 'views/components/cluster/cluster.html',
+                controller: 'clusterController'
+            }
+        );
 
     $routeProvider.otherwise({redirectTo: '/home'});
     $translateProvider.useCookieStorage();
