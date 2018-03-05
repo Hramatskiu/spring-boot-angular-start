@@ -8,8 +8,41 @@
     }
   },
   "home" : {
-    "button" : {
-      "check" : "Check cluster"
+    "label": {
+      "cluster": {
+        "check": "Check health",
+        "list": "Cluster list",
+        "clusters": "Clusters",
+        "name": "Cluster name",
+        "host": "Cluster host",
+        "password": "Rest password",
+        "username": "Rest username",
+        "result": "Health cluster result",
+        "number": "Number"
+      }
+    },
+    "placeholder": {
+      "cluster": {
+        "name": "some_name",
+        "host": "som_host",
+        "password": "some_password",
+        "username": "some_username",
+        "search": "any matching value"
+      }
+    },
+    "error": {
+      "cluster": {
+        "name": "Invalid name",
+        "host": "Invalid host",
+        "password": "Invalid password",
+        "username": "Invalid username"
+      }
+    },
+    "button": {
+      "cluster": {
+        "check": "Check cluster",
+        "edit": "Edit cluster"
+      }
     }
   }
 
