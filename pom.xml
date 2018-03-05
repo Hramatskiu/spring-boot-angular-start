@@ -81,6 +81,7 @@
 				<configuration>
 					<excludes>
 						<exclude>application.properties</exclude>
+						<exclude>clusters.json</exclude>
 					</excludes>
 					<archive>
 						<manifest>
