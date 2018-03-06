@@ -9,6 +9,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @SpringBootApplication
 public class HealthCheckerToolApplication {
 	public static void main(String[] args) {
-		SpringApplication.run(HealthCheckerToolApplication.class, args);
+			SpringApplication.run(HealthCheckerToolApplication.class, args);
 	}
 }
