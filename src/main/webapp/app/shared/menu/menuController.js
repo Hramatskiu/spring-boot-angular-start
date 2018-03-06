@@ -1,4 +1,4 @@
-webApp.controller("menuController",['$scope', 'clustersService', function($scope, clustersService){
+webApp.controller("menuController",['$scope', 'clustersService', 'healthCheckService', function($scope, clustersService, healthCheckService){
    var promiseClusters=clustersService.getClusters();
    promiseClusters.then( function(value) {
        $scope.clusters = value;
@@ -7,11 +7,21 @@ webApp.controller("menuController",['$scope', 'clustersService', function($scope
        }
    });
 
+   $scope.showEditCluster = function( clusterName ) {
+        for ( index in $scope.clusters ) {
+            if ( $scope.clusters[index].name == clusterName ) {
+                $scope.tempCluster = $scope.clusters[index];
+            }
+        }
+
+        $('#editClusterModal').modal('show');
+   }
+
    $scope.editCluster = function() {
        //stub
    }
 
-   $scope.checkClusterHealth = function() {
-       $('#healthCheckResult').modal('show');
+   $scope.checkClusterHealth = function( clusterName ) {
+        healthCheckService.makeHealthCheck( clusterName );
    }
 }]);

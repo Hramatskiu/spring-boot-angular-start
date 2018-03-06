@@ -21,7 +21,8 @@
         "number": "Number",
         "action": "Action",
         "state": "State",
-        "service": "Service"
+        "service": "Service",
+        "edit": "Edit cluster"
       }
     },
     "placeholder": {
