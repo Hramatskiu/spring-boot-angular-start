@@ -18,7 +18,10 @@
         "password": "Rest password",
         "username": "Rest username",
         "result": "Health cluster result",
-        "number": "Number"
+        "number": "Number",
+        "action": "Action",
+        "state": "State",
+        "service": "Service"
       }
     },
     "placeholder": {
