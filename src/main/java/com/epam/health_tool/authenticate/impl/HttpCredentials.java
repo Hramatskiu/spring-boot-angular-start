@@ -3,8 +3,8 @@ package com.epam.health_tool.authenticate.impl;
 import org.apache.commons.lang.StringUtils;
 
 public class HttpCredentials {
-  private String username;
-  private String password;
+  String username;
+  String password;
 
   //For test
   public HttpCredentials() {

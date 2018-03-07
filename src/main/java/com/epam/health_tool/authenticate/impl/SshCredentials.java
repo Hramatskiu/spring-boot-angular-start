@@ -3,8 +3,8 @@ package com.epam.health_tool.authenticate.impl;
 import org.apache.commons.lang.StringUtils;
 
 public class SshCredentials {
-  private String username;
-  private String password;
+  String username;
+  String password;
   private String identityPath; //path to pem file
 
   //For test

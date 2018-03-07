@@ -9,14 +9,14 @@ import org.apache.http.client.CredentialsProvider;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConfigLoadCredentials extends BaseCredentialsToken implements IHttpCredentials,
+public class ClusterAuthentication extends BaseCredentialsToken implements IHttpCredentials,
         ISshCredentials, IKerberosAuthentication {
     private CredentialsProvider credentialsProvider;
     private SshCredentials sshCredentials;
     private List<String> authShemes;
     private boolean kerberosAuth;
 
-    public ConfigLoadCredentials() {
+    public ClusterAuthentication() {
         credentialsProvider = null;
         sshCredentials = null;
         authShemes = new ArrayList<>();
