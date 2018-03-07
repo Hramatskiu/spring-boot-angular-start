@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -39,6 +40,11 @@ public class Krb5Configurator {
     logger.info( "Start download krb5 from cluster!" );
     String rootUtilFolder = getRootUtilityFolder() + File.separator + "kerberos" + File.separator + "krb5.conf";
     //String folderToSaveKrb =
+    try {
+      String fileName = Paths.get(Krb5Configurator.class.getClassLoader().getResource("clusters.json").toURI()).toString();
+    } catch (URISyntaxException e) {
+      e.printStackTrace();
+    }
 
     try {
       FileCommonUtil.writeStringToFile( rootUtilFolder,

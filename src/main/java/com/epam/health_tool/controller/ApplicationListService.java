@@ -47,7 +47,7 @@ public class ApplicationListService {
         authenticator.authenticate(clusterCredentials);
 
 
-        String url = "http://" + clusterCredentials.getCluster().getHost() + ":7180/api/v10/clusters/" + clusterCredentials.getCluster().getName() + "/services/yarn/yarnApplications";
+        String url = "http://" + clusterCredentials.getCluster().getHost() + ":7180/api/v10/clusters/" + clusterCredentials.getCluster().getName() + "/services/yarn/yarnApplications?from=10";
         System.out.println(url);
         HttpUriRequest httpUriRequest = CommonUtilHolder.httpCommonUtilInstance().createHttpUriRequest(url);
         Type listType = new TypeToken<ArrayList<YarnApplicationCdh>>() {
