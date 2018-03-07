@@ -45,7 +45,7 @@ public class ClusterHealthCheckService {
         ClusterCredentials clusterCredentials = clusterFacade.readClusterCredentials(clusterName);
         authenticate(clusterCredentials);
 
-        String url = "http://" + clusterCredentials.getCluster().getHost() + ":7180/api/v18/clusters/" + clusterCredentials.getCluster().getName() + "/services";
+        String url = "http://" + clusterCredentials.getCluster().getHost() + ":7180/api/v10/clusters/" + clusterCredentials.getCluster().getName() + "/services";
         System.out.println(url);
         HttpUriRequest httpUriRequest = CommonUtilHolder.httpCommonUtilInstance().createHttpUriRequest(url);
         Type listType = new TypeToken<ArrayList<ServiceStatus>>() {
