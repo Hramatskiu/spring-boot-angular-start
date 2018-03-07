@@ -1,10 +1,14 @@
-<div class="container col-sm-12">
+<div class="container col-sm-12 col-md-12 col-xs-12">
     <div class="panel panel-default">
         <div class="panel-heading">
             <h2>{{ 'home.label.cluster.result' | translate }} - {{clusterState.cluster.name}}</h2>
         </div>
         <div class="panel-body">
-            <div class="table-responsive" style="margin-top: 1%">
+            <ul class="nav nav-tabs">
+                <li class="{{activeTab.health}}"><a ng-click="showTab('health')">{{ 'home.label.cluster.result' | translate }}</a></li>
+                <li class="{{activeTab.yarn}}"><a ng-click="showTab('yarn')">{{ 'home.label.service.yarn.app.list' | translate }}</a></li>
+            </ul>
+            <div class="table-responsive" style="margin-top: 1%" ng-show="activeTab.health=='active'">
                 <table class="table table-hover">
                     <thead>
                     <tr>
@@ -13,7 +17,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="x in clusterState.serviceStatusList | filter : searchResult">
+                    <tr ng-repeat="x in clusterState.serviceStatusList">
                         <td>{{x.name}}</td>
                         <td class="bg-success" ng-show="x.healthSummary=='GOOD'">{{x.healthSummary}}</td>
                         <td class="bg-danger" ng-show="x.healthSummary=='BAD'">{{x.healthSummary}}</td>
@@ -21,6 +25,40 @@
                     </tr>
                     </tbody>
                 </table>
+            </div>
+            <div ng-show="activeTab.yarn=='active'" style="margin-top: 2%">
+                <div class="input-group" style="margin-bottom: 2%">
+                    <input type="text" class="form-control" ng-model="yarnSearch" placeholder="{{ 'home.placeholder.cluster.search' | translate }}">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" type="submit">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>{{ 'home.label.service.yarn.app.id' | translate }}</th>
+                            <th>{{ 'home.label.service.yarn.app.name' | translate }}</th>
+                            <th>{{ 'home.label.service.yarn.app.startTime' | translate }}</th>
+                            <th>{{ 'home.label.service.yarn.app.state' | translate }}</th>
+                            <th>{{ 'home.label.cluster.action' | translate }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="x in yarnApps | filter : yarnSearch">
+                            <td>{{x.applicationId}}</td>
+                            <td>{{x.name}}</td>
+                            <td>{{x.startTime}}</td>
+                            <td class="bg-success" ng-show="x.state=='SUCCEEDED'">{{x.state}}</td>
+                            <td class="bg-danger" ng-show="x.state=='FAILED'">{{x.state}}</td>
+                            <td class="bg-info" ng-show="x.state!='SUCCEEDED' && x.state!='FAILED'">{{x.state}}</td>
+                            <td><button type="button" class="btn btn-danger" ng-disabled="x.state!='RUNNING'" ng-click="killApp(x.applicationId)">{{ 'home.button.service.yarn.app.kill' | translate }}</button></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

@@ -23,6 +23,19 @@
         "state": "State",
         "service": "Service",
         "edit": "Edit cluster"
+      },
+      "service": {
+        "yarn": {
+          "name": "Yarn",
+          "app": {
+            "id": "Application id",
+            "name": "Application name",
+            "state": "Application state",
+            "list": "Application list",
+            "user": "User",
+            "startTime": "Start time"
+          }
+        }
       }
     },
     "placeholder": {
@@ -46,6 +59,13 @@
       "cluster": {
         "check": "Check cluster",
         "edit": "Edit cluster"
+      },
+      "service": {
+        "yarn": {
+          "app": {
+            "kill": "Kill"
+          }
+        }
       }
     }
   }

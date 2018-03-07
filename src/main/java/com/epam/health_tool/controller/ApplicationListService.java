@@ -12,6 +12,7 @@ import com.epam.health_tool.util.CommonUtilHolder;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+import org.apache.commons.io.IOUtils;
 import org.apache.http.auth.AuthenticationException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpUriRequest;
@@ -46,8 +47,7 @@ public class ApplicationListService {
         ClusterCredentials clusterCredentials = clusterFacade.readClusterCredentials(clusterName);
         authenticator.authenticate(clusterCredentials);
 
-
-        String url = "http://" + clusterCredentials.getCluster().getHost() + ":7180/api/v10/clusters/" + clusterCredentials.getCluster().getName() + "/services/yarn/yarnApplications?from=10";
+        String url = "http://" + clusterCredentials.getCluster().getHost() + ":7180/api/v10/clusters/" + clusterCredentials.getCluster().getName() + "/services/yarn/yarnApplications?from=1";
         System.out.println(url);
         HttpUriRequest httpUriRequest = CommonUtilHolder.httpCommonUtilInstance().createHttpUriRequest(url);
         Type listType = new TypeToken<ArrayList<YarnApplicationCdh>>() {
@@ -61,12 +61,14 @@ public class ApplicationListService {
     }
 
     @RequestMapping("/killApplication")
-    public boolean killApplication(String clusterName, String applicationId, Model model) throws CommonUtilException, IOException, AuthenticationException, ClusterNotFoundException {
+    public boolean killApplication(@RequestParam(value = "clusterName", required = false, defaultValue = "cdh513") String clusterName,
+                                   @RequestParam(value = "applicationId", required = false, defaultValue = "cdh513") String applicationId)
+            throws CommonUtilException, IOException, AuthenticationException, ClusterNotFoundException {
         ClusterCredentials clusterCredentials = clusterFacade.readClusterCredentials(clusterName);
         authenticator.authenticate(clusterCredentials);
 
-
-        String url = "http://" + clusterCredentials.getCluster().getHost() + ":7180/api/v10/clusters/" + clusterCredentials.getCluster().getName() + "/services/yarn/yarnApplications/"+applicationId+"/kill";
+        String url = "http://" + clusterCredentials.getCluster().getHost() + ":7180/api/v10/clusters/"
+                + clusterCredentials.getCluster().getName() + "/services/yarn/yarnApplications/"+applicationId+"/kill";
         System.out.println(url);
         HttpUriRequest httpUriRequest = CommonUtilHolder.httpCommonUtilInstance().createHttpUriRequest(url);
         CloseableHttpResponse execute = CommonUtilHolder.httpCommonUtilInstance().createHttpClient().execute(httpUriRequest);
