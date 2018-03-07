@@ -13,10 +13,11 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="x in clusterState.services | filter : searchResult">
+                    <tr ng-repeat="x in clusterState.serviceStatusList | filter : searchResult">
                         <td>{{x.name}}</td>
-                        <td class="bg-success" ng-show="x.state=='Good'">{{x.state}}</td>
-                        <td class="bg-danger" ng-show="x.state=='Bad'">{{x.state}}</td>
+                        <td class="bg-success" ng-show="x.healthSummary=='GOOD'">{{x.healthSummary}}</td>
+                        <td class="bg-danger" ng-show="x.healthSummary=='BAD'">{{x.healthSummary}}</td>
+                        <td class="bg-primary" ng-show="x.healthSummary=='CONCERNING'">{{x.healthSummary}}</td>
                     </tr>
                     </tbody>
                 </table>

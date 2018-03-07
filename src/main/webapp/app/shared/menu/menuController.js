@@ -1,4 +1,4 @@
-webApp.controller("menuController",['$scope', 'clustersService', 'healthCheckService', function($scope, clustersService, healthCheckService){
+webApp.controller("menuController",['$scope', 'clustersService', 'routeService', function($scope, clustersService, routeService){
    var promiseClusters=clustersService.getClusters();
    promiseClusters.then( function(value) {
        $scope.clusters = value;
@@ -22,6 +22,6 @@ webApp.controller("menuController",['$scope', 'clustersService', 'healthCheckSer
    }
 
    $scope.checkClusterHealth = function( clusterName ) {
-        healthCheckService.makeHealthCheck( clusterName );
+        routeService.routeToHealthCheck( clusterName );
    }
 }]);

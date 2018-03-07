@@ -12,9 +12,9 @@ webApp.factory('clustersService',['$http', '$q', function ($http, $q) {
 
             return deferred.promise;
         },
-        getClusterState: function() {
+        getClusterState: function( clusterName ) {
             var deferred = $q.defer();
-            $http({method: 'GET', url: 'clusters_state.json', params: {}}).
+            $http({method: 'GET', url: '/getClusterStatus', params: { clusterName: clusterName }}).
             then(function(response) {
                     deferred.resolve(response.data);
                 },
