@@ -46,7 +46,7 @@ public class AutheticationManagerImpl implements AuthenticationManager {
                 .setCredentialsProvider(createHttpCredentialsProvider(authentication.getHttp()));
         clusterAuthentication.setAuthShemes(createAuthShemesList());
         clusterAuthentication.setSshCredentials(createSshCredentials(authentication.getSsh()));
-        clusterAuthentication.setKerberosAuth(loginWithKerberos(authentication.getKrb5Credentials()));
+        clusterAuthentication.setKerberosAuth(loginWithKerberos(authentication));
 
         // Necessary?
         clusterAuthentication.setAuthenticated(true);
@@ -85,31 +85,33 @@ public class AutheticationManagerImpl implements AuthenticationManager {
         return authShemes;
     }
 
-    private boolean loginWithKerberos(Krb5Credentials krb5Credentials) throws AuthenticationException {
-        String krb5Location = "";
+    private boolean loginWithKerberos(ClusterCredentials clusterCredentials) throws AuthenticationException {
+        Krb5Credentials krb5Credentials = clusterCredentials.getKerberos();
+        if (clusterCredentials.getCluster().isSecured()) {
+            String krb5Location = krb5Credentials.getKrb5ConfPath();
 
-        if (!krb5Location.isEmpty() && !krb5Credentials.getUsername().isEmpty()) {
-            System.setProperty("java.security.krb5.conf", krb5Location);
-            logger.info(
-                    "Keberos authentication from krb5 file - " + krb5Location + " . With credentials: username - " + krb5Credentials
-                            .getUsername()
-                            + " password - " + krb5Credentials.getPassword());
-            try {
-                if (krb5Credentials.getKeytabLocation() != null && !krb5Credentials.getKeytabLocation().isEmpty()) {
-                    HadoopKerberosUtil.doLoginWithKeytab(krb5Credentials.getUsername(), krb5Credentials.getKeytabLocation());
-                } else {
-                    HadoopKerberosUtil
-                            .doLoginWithPrincipalAndPassword(krb5Credentials.getUsername(), krb5Credentials.getPassword());
+            if (!krb5Location.isEmpty() && !krb5Credentials.getUsername().isEmpty()) {
+                System.setProperty("java.security.krb5.conf", krb5Location);
+                logger.info(
+                        "Keberos authentication from krb5 file - " + krb5Location + " . With credentials: username - " + krb5Credentials
+                                .getUsername()
+                                + " password - " + krb5Credentials.getPassword());
+                try {
+                    if (krb5Credentials.getKeytabLocation() != null && !krb5Credentials.getKeytabLocation().isEmpty()) {
+                        HadoopKerberosUtil.doLoginWithKeytab(krb5Credentials.getUsername(), krb5Credentials.getKeytabLocation());
+                    } else {
+                        HadoopKerberosUtil
+                                .doLoginWithPrincipalAndPassword(krb5Credentials.getUsername(), krb5Credentials.getPassword());
+                    }
+
+                    return true;
+                } catch (IOException | LoginException ex) {
+                    throw new BadCredentialsException("Bad kerberos credentials", ex);
                 }
-
-                return true;
-            } catch (IOException | LoginException ex) {
-                throw new BadCredentialsException("Bad kerberos credentials", ex);
             }
+
+            logger.info("Keberos auth unnecessary. Krb5 location - " + krb5Location);
         }
-
-        logger.info("Keberos auth unnecessary. Krb5 location - " + krb5Location);
-
         return false;
     }
 
