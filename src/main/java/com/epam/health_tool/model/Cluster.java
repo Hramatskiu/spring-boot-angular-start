@@ -12,6 +12,7 @@ public class Cluster {
     //@JsonProperty("host")
     String host;
     ClusterType clusterType;
+    boolean secured;
 
     public Cluster() {
     }
@@ -44,5 +45,13 @@ public class Cluster {
 
     public void setClusterType(ClusterType clusterType) {
         this.clusterType = clusterType;
+    }
+
+    public boolean isSecured() {
+        return secured;
+    }
+
+    public void setSecured(boolean secured) {
+        this.secured = secured;
     }
 }

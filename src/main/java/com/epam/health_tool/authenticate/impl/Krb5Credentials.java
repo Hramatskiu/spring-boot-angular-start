@@ -3,9 +3,10 @@ package com.epam.health_tool.authenticate.impl;
 import org.apache.commons.lang.StringUtils;
 
 public class Krb5Credentials {
-  private String username;
-  private String password;
+  String username;
+  String password;
   private String keytabLocation;
+  private String krb5ConfPath;
 
   //For test
   public Krb5Credentials() {
@@ -48,5 +49,13 @@ public class Krb5Credentials {
 
   public void setKeytabLocation( String keytabLocation ) {
     this.keytabLocation = keytabLocation;
+  }
+
+  public String getKrb5ConfPath() {
+    return krb5ConfPath;
+  }
+
+  public void setKrb5ConfPath(String krb5ConfPath) {
+    this.krb5ConfPath = krb5ConfPath;
   }
 }

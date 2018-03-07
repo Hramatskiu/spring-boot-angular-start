@@ -10,14 +10,14 @@ public class ClusterCredentials extends BaseCredentialsToken {
     //@JsonProperty("http")
     HttpCredentials http;
     //@JsonProperty("kerberos")
-    Krb5Credentials krb5Credentials;
+    Krb5Credentials kerberos;
     //@JsonProperty("ssh")
     SshCredentials ssh;
 
-    public ClusterCredentials(HttpCredentials http, Krb5Credentials krb5Credentials,
+    public ClusterCredentials(HttpCredentials http, Krb5Credentials kerberos,
                               SshCredentials sshCredentials) {
         this.http = http;
-        this.krb5Credentials = krb5Credentials;
+        this.kerberos = kerberos;
         this.ssh = sshCredentials;
     }
 
@@ -29,12 +29,12 @@ public class ClusterCredentials extends BaseCredentialsToken {
         this.http = http;
     }
 
-    public Krb5Credentials getKrb5Credentials() {
-        return krb5Credentials;
+    public Krb5Credentials getKerberos() {
+        return kerberos;
     }
 
-    public void setKrb5Credentials(Krb5Credentials krb5Credentials) {
-        this.krb5Credentials = krb5Credentials;
+    public void setKerberos(Krb5Credentials kerberos) {
+        this.kerberos = kerberos;
     }
 
     public SshCredentials getSsh() {
