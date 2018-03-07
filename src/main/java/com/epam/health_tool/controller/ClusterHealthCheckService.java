@@ -1,5 +1,6 @@
 package com.epam.health_tool.controller;
 
+import com.epam.health_tool.authenticate.Authenticator;
 import com.epam.health_tool.authenticate.impl.ClusterCredentials;
 import com.epam.health_tool.cluster.facade.ClusterFacade;
 import com.epam.health_tool.cluster.facade.ClusterNotFoundException;
@@ -35,15 +36,15 @@ public class ClusterHealthCheckService {
     CommonUtilHolder commonUtilHolder;
 
     @Autowired
-    AuthenticationManager authenticationManager;
+    private ClusterFacade clusterFacade;
 
     @Autowired
-    private ClusterFacade clusterFacade;
+    private Authenticator authenticator;
 
     @RequestMapping("/getClusterStatus")
     public ClusterServicesStatus greeting(@RequestParam(value = "clusterName", required = false, defaultValue = "cdh513") String clusterName, Model model) throws CommonUtilException, IOException, AuthenticationException, ClusterNotFoundException {
         ClusterCredentials clusterCredentials = clusterFacade.readClusterCredentials(clusterName);
-        authenticate(clusterCredentials);
+        authenticator.authenticate(clusterCredentials);
 
         String url = "http://" + clusterCredentials.getCluster().getHost() + ":7180/api/v10/clusters/" + clusterCredentials.getCluster().getName() + "/services";
         System.out.println(url);
@@ -59,11 +60,5 @@ public class ClusterHealthCheckService {
         return new ClusterServicesStatus(clusterCredentials.getCluster(), clusterListObject);
     }
 
-    private void authenticate(ClusterCredentials clusterCredentials) {
-        SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_GLOBAL);
-        SecurityContextHolder.getContext()
-                .setAuthentication(authenticationManager.authenticate(
-                        clusterCredentials));
-    }
 
 }
