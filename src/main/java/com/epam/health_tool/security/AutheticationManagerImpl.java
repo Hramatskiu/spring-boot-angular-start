@@ -27,31 +27,31 @@ public class AutheticationManagerImpl implements AuthenticationManager {
     private static final Logger logger = Logger.getLogger(AutheticationManagerImpl.class);
 
     public Authentication authenticate(Authentication auth) throws AuthenticationException {
-        if (auth instanceof ConfigLoadCredentials && auth.isAuthenticated()) {
+        if (auth instanceof ClusterAuthentication && auth.isAuthenticated()) {
             return auth;
         }
 
-        if (auth instanceof BaseConfigLoadAuthentication) {
-            return makeAuthentication((BaseConfigLoadAuthentication) auth);
+        if (auth instanceof ClusterCredentials) {
+            return makeAuthentication((ClusterCredentials) auth);
         }
 
         throw new BadCredentialsException("Can't authenticate");
     }
 
-    private Authentication makeAuthentication(BaseConfigLoadAuthentication authentication)
+    private Authentication makeAuthentication(ClusterCredentials authentication)
             throws AuthenticationException {
-        ConfigLoadCredentials configLoadCredentials = new ConfigLoadCredentials();
+        ClusterAuthentication clusterAuthentication = new ClusterAuthentication();
 
-        configLoadCredentials
-                .setCredentialsProvider(createHttpCredentialsProvider(authentication.getHttpCredentials()));
-        configLoadCredentials.setAuthShemes(createAuthShemesList());
-        configLoadCredentials.setSshCredentials(createSshCredentials(authentication.getSshCredentials()));
-        configLoadCredentials.setKerberosAuth(loginWithKerberos(authentication.getKrb5Credentials()));
+        clusterAuthentication
+                .setCredentialsProvider(createHttpCredentialsProvider(authentication.getHttp()));
+        clusterAuthentication.setAuthShemes(createAuthShemesList());
+        clusterAuthentication.setSshCredentials(createSshCredentials(authentication.getSsh()));
+        clusterAuthentication.setKerberosAuth(loginWithKerberos(authentication.getKrb5Credentials()));
 
         // Necessary?
-        configLoadCredentials.setAuthenticated(true);
+        clusterAuthentication.setAuthenticated(true);
 
-        return configLoadCredentials;
+        return clusterAuthentication;
     }
 
     private CredentialsProvider createHttpCredentialsProvider(HttpCredentials httpCredentials)

@@ -1,32 +1,34 @@
 package com.epam.health_tool.controller;
 
-import com.epam.health_tool.authenticate.impl.BaseConfigLoadAuthentication;
-import com.epam.health_tool.authenticate.impl.HttpCredentials;
-import com.epam.health_tool.authenticate.impl.Krb5Credentials;
-import com.epam.health_tool.authenticate.impl.SshCredentials;
+import com.epam.health_tool.authenticate.impl.ClusterCredentials;
+import com.epam.health_tool.cluster.facade.ClusterFacade;
+import com.epam.health_tool.cluster.facade.ClusterNotFoundException;
+import com.epam.health_tool.model.ClusterServicesStatus;
+import com.epam.health_tool.model.ServiceStatus;
 import com.epam.health_tool.util.CommonUtilException;
 import com.epam.health_tool.util.CommonUtilHolder;
-import org.apache.http.auth.AuthScope;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 import org.apache.http.auth.AuthenticationException;
-import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.methods.HttpUriRequest;
-import org.apache.http.impl.auth.BasicScheme;
 import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 /**
  * Created by Vasilina_Terehova on 3/3/2018.
  */
-@Controller
+@RestController
 public class ClusterHealthCheckService {
 
     @Autowired
@@ -35,25 +37,33 @@ public class ClusterHealthCheckService {
     @Autowired
     AuthenticationManager authenticationManager;
 
+    @Autowired
+    private ClusterFacade clusterFacade;
+
     @RequestMapping("/getClusterStatus")
-    public
-    @ResponseBody
-    ClusterHealthStatus greeting(@RequestParam(value = "clusterName", required = false, defaultValue = "cdh513") String clusterName, Model model) throws CommonUtilException, IOException, AuthenticationException {
-        authenticate();
-        HttpUriRequest httpUriRequest = CommonUtilHolder.httpCommonUtilInstance().createHttpUriRequest("http://svqxbdcn6cdh513n1.pentahoqa.com:7180/api/v18/clusters/CDH513Unsecure/services");
-        System.out.println(EntityUtils.toString(CommonUtilHolder.httpCommonUtilInstance().createHttpClient()
-                .execute(httpUriRequest).getEntity()));
+    public ClusterServicesStatus greeting(@RequestParam(value = "clusterName", required = false, defaultValue = "cdh513") String clusterName, Model model) throws CommonUtilException, IOException, AuthenticationException, ClusterNotFoundException {
+        ClusterCredentials clusterCredentials = clusterFacade.readClusterCredentials(clusterName);
+        authenticate(clusterCredentials);
+
+        String url = "http://" + clusterCredentials.getCluster().getHost() + ":7180/api/v18/clusters/" + clusterCredentials.getCluster().getName() + "/services";
+        System.out.println(url);
+        HttpUriRequest httpUriRequest = CommonUtilHolder.httpCommonUtilInstance().createHttpUriRequest(url);
+        Type listType = new TypeToken<ArrayList<ServiceStatus>>() {
+        }.getType();
+        String json = EntityUtils.toString(CommonUtilHolder.httpCommonUtilInstance().createHttpClient()
+                .execute(httpUriRequest).getEntity());
+        Gson gson = new Gson();
+        ArrayList<ServiceStatus> clusterListObject = gson.fromJson(gson.fromJson(json, JsonObject.class).get("items"), listType);
+        System.out.println(clusterListObject);
         model.addAttribute("clusterName", clusterName);
-        return new ClusterHealthStatus("cdh513", true);
-        //return "greeting";
+        return new ClusterServicesStatus(clusterCredentials.getCluster(), clusterListObject);
     }
 
-    private void authenticate() {
-        SecurityContextHolder.setStrategyName( SecurityContextHolder.MODE_GLOBAL );
+    private void authenticate(ClusterCredentials clusterCredentials) {
+        SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_GLOBAL);
         SecurityContextHolder.getContext()
-                .setAuthentication( authenticationManager.authenticate(
-                        new BaseConfigLoadAuthentication( new HttpCredentials("admin", "admin"),
-                                new Krb5Credentials("devuser@PENTAHOQA.COM", "password"), new SshCredentials("devuser", "password")) ) );
+                .setAuthentication(authenticationManager.authenticate(
+                        clusterCredentials));
     }
 
 }

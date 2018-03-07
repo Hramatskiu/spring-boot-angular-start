@@ -1,14 +1,32 @@
 [
   {
-    "name": "CDH513Unsecure",
-    "host": "",
-    "username": "admin",
-    "password": "admin"
+    "cluster": {
+      "name": "CDH513Unsecure",
+      "host": "svqxbdcn6cdh513n1.pentahoqa.com",
+      "type": "cdh"
+    },
+    "http": {
+      "username": "admin",
+      "password": "admin"
+    },
+    "ssh": {
+      "username": "devuser",
+      "password": "password"
+    }
   },
   {
-    "name": "CDH512Unsecure",
-    "host": "somehost",
-    "username": "admin",
-    "password": "admin"
+    "cluster": {
+      "name": "CDH512Unsecure",
+      "host": "svqxbdcn6cdh512n1.pentahoqa.com",
+      "type": "cdh"
+    },
+    "http": {
+      "username": "admin",
+      "password": "admin"
+    },
+    "ssh": {
+      "username": "devuser",
+      "password": "password"
+    }
   }
 ]

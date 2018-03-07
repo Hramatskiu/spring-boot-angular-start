@@ -1,5 +1,6 @@
 package com.epam.health_tool.cluster;
 
+import com.epam.health_tool.model.Cluster;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
