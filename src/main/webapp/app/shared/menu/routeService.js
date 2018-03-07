@@ -1,14 +1,20 @@
 webApp.factory('routeService',['$rootScope', '$location', 'clustersService', function ($rootScope, $location, clustersService) {
+    var healthCheckCallback;
+
     return{
         routeToHealthCheck: function( clusterName ) {
-            $rootScope.checkClusterHealth = true;
+            $rootScope.forceCheck = true;
+
             if ( $location.path().indexOf( "cluster/" + clusterName ) == -1 ) {
-                $location.url( "/cluster/" + clusterName + "?check=true" );
+                $location.url( "/cluster/" + clusterName );
             }
             else {
                 //stub
-                console.log( "haha" );
+                healthCheckCallback( clusterName );
             }
+        },
+        setHealthCheckCallback: function( callback ) {
+            healthCheckCallback = callback;
         }
     }
 }]);
