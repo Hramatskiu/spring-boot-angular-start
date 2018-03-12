@@ -26,7 +26,12 @@
         "logs": "Logs location",
         "path": "Path",
         "disk": "Disk",
-        "memory": "Memory"
+        "memory": "Memory",
+        "security": "Security",
+        "http": {
+          "username": "Http username",
+          "password": "Http password"
+        }
       },
       "service": {
         "yarn": {
@@ -53,7 +58,11 @@
         "host": "som_host",
         "password": "some_password",
         "username": "some_username",
-        "search": "any matching value"
+        "search": "any matching value",
+        "http": {
+          "username": "some http username",
+          "password": "some http password"
+        }
       }
     },
     "error": {
@@ -61,13 +70,18 @@
         "name": "Invalid name",
         "host": "Invalid host",
         "password": "Invalid password",
-        "username": "Invalid username"
+        "username": "Invalid username",
+        "http": {
+          "username": "Invalid http username",
+          "password": "Invalid http password"
+        }
       }
     },
     "button": {
       "cluster": {
         "check": "Check cluster",
-        "edit": "Edit cluster"
+        "edit": "Edit cluster",
+        "restart": "Restart"
       },
       "service": {
         "yarn": {

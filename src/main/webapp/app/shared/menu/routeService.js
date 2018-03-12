@@ -9,7 +9,6 @@ webApp.factory('routeService',['$rootScope', '$location', 'clustersService', fun
                 $location.url( "/cluster/" + clusterName );
             }
             else {
-                //stub
                 healthCheckCallback( clusterName );
             }
         },

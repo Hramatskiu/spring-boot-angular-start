@@ -21,15 +21,27 @@
                         <th>{{ 'home.label.cluster.service' | translate }}</th>
                         <th>{{ 'home.label.cluster.state' | translate }}</th>
                         <th>{{ 'home.label.cluster.logs' | translate }}</th>
+                        <th>{{ 'home.label.cluster.action' | translate }}</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr ng-repeat="x in clusterState.serviceStatusList">
                         <td>{{x.name}}</td>
-                        <td class="bg-success" ng-show="x.healthSummary=='GOOD'">{{x.healthSummary}}</td>
+                        <td colspan="2" class="bg-success" ng-show="x.healthSummary=='GOOD'">{{x.healthSummary}}</td>
                         <td class="bg-danger" ng-show="x.healthSummary=='BAD'">{{x.healthSummary}}</td>
-                        <td class="bg-primary" ng-show="x.healthSummary=='CONCERNING'">{{x.healthSummary}}</td>
-                        <td ng-show="x.healthSummary=='BAD'">{{ 'home.label.cluster.host' | translate }}: {{clusterState.cluster.host}}, {{ 'home.label.cluster.path' | translate }}: /path/to/logs</td>
+                        <td colspan="2" class="bg-primary" ng-show="x.healthSummary=='CONCERNING'">{{x.healthSummary}}</td>
+                        <td class="bg-danger" ng-show="x.healthSummary=='BAD'">{{ 'home.label.cluster.host' | translate }}: {{clusterState.cluster.host}}, {{ 'home.label.cluster.path' | translate }}: /yarn/containers-logs</td>
+                        <td ng-show="isShowServiceActionAllow(x.name)" align="center">
+                            <button type="button" style="text-decoration: underline" class="btn btn-primary" ng-click="restartService(x.name)">{{ 'home.button.cluster.restart' | translate }}</button>
+                            <!--<div class="input-group-btn">-->
+                                <!--<button class="btn btn-default" type="submit" name="restart" ng-click="restartService(x.name)">-->
+                                    <!--<i class="glyphicon glyphicon-repeat"></i>-->
+                                <!--</button>-->
+                                <!--<button class="btn btn-default" type="submit" name="fix" ng-click="fixService(x.name)">-->
+                                    <!--<i class="glyphicon glyphicon-pencil"></i>-->
+                                <!--</button>-->
+                            <!--</div>-->
+                        </td>
                     </tr>
                     </tbody>
                 </table>

@@ -79,6 +79,16 @@
                                     <input type="password" class="form-control" id="password" name="password" required ng-model="tempCluster.password" placeholder="{{ 'home.placeholder.cluster.password' | translate }}">
                                     <span class="help-block" ng-show="ClusterEdit.password.$invalid && ClusterEdit.password.$dirty">{{ 'home.error.cluster.password' | translate }}</span>
                                 </div>
+                                <div class="form-group col-sm-12">
+                                    <label for="password">{{ 'home.label.cluster.http.username' | translate}}</label>
+                                    <input type="password" class="form-control" id="httpUsername" name="httpUsername" required ng-model="tempCluster.httpUsername" placeholder="{{ 'home.placeholder.cluster.http.username' | translate }}">
+                                    <span class="help-block" ng-show="ClusterEdit.httpUsername.$invalid && ClusterEdit.httpUsername.$dirty">{{ 'home.error.cluster.http.username' | translate }}</span>
+                                </div>
+                                <div class="form-group col-sm-12">
+                                    <label for="password">{{ 'home.label.cluster.http.password' | translate}}</label>
+                                    <input type="text" class="form-control" id="httpPassword" name="httpPassword" required ng-model="tempCluster.httpPassword" placeholder="{{ 'home.placeholder.cluster.http.password' | translate }}">
+                                    <span class="help-block" ng-show="ClusterEdit.httpPassword.$invalid && ClusterEdit.httpPassword.$dirty">{{ 'home.error.cluster.http.password' | translate }}</span>
+                                </div>
                             </div>
                             <button type="submit" class="btn btn-primary btn-block-xs submit" ng-disabled="ClusterEdit.$invalid">{{ 'home.button.cluster.edit' | translate }}</button>
                         </form>

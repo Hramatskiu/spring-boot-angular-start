@@ -63,6 +63,22 @@ webApp.controller("clusterController", ['$scope', '$routeParams', '$rootScope', 
         }
     }
 
+    $scope.isShowServiceActionAllow = function( serviceName ) {
+        if ( serviceName == "hive" || serviceName == "hbase" ) {
+            return true;
+        }
+
+        return false;
+    }
+
+    $scope.restartService = function( serviceName ) {
+        //empty
+    }
+
+    $scope.fixService = function( serviceName ) {
+        //empty
+    }
+
     $scope.killApp = function( id ) {
         var promiseYarnKillApp = clustersService.killYarnApp( $scope.clusterName, id );
         promiseYarnKillApp.then( function(value) {
