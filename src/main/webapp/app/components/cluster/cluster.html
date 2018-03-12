@@ -2,6 +2,12 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <h2>{{ 'home.label.cluster.result' | translate }} - {{clusterState.cluster.name}}</h2>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">{{ 'home.label.cluster.disk' | translate }} - 90% used <span data-toggle="tooltip" data-placement="top" title="Not enough space" class="badge badge-pill badge-danger pull-right">!</span></li>
+                <li class="list-group-item">{{ 'home.label.cluster.memory' | translate }} - 11000 MB of 12000 MB <span data-toggle="tooltip" data-placement="top" title="Not enough memory" class="badge badge-pill badge-danger pull-right">!</span></li>
+                <li class="list-group-item">{{ 'home.label.service.yarn.apps' | translate }} - {{yarnApps.length}}</li>
+                <li class="list-group-item" ng-show="clusterState.cluster.secured">{{ 'home.label.cluster.security' | translate }} - {{ 'home.label.common.no_problems' | translate }} <span class="label label-success pull-right">OK</span></li>
+            </ul>
         </div>
         <div class="panel-body">
             <ul class="nav nav-tabs">
@@ -10,10 +16,11 @@
             </ul>
             <div class="table-responsive" style="margin-top: 1%" ng-show="activeTab.health=='active'">
                 <table class="table table-hover">
-                    <thead>
+                    <thead class="thead-inverse">
                     <tr>
                         <th>{{ 'home.label.cluster.service' | translate }}</th>
                         <th>{{ 'home.label.cluster.state' | translate }}</th>
+                        <th>{{ 'home.label.cluster.logs' | translate }}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -22,6 +29,7 @@
                         <td class="bg-success" ng-show="x.healthSummary=='GOOD'">{{x.healthSummary}}</td>
                         <td class="bg-danger" ng-show="x.healthSummary=='BAD'">{{x.healthSummary}}</td>
                         <td class="bg-primary" ng-show="x.healthSummary=='CONCERNING'">{{x.healthSummary}}</td>
+                        <td ng-show="x.healthSummary=='BAD'">{{ 'home.label.cluster.host' | translate }}: {{clusterState.cluster.host}}, {{ 'home.label.cluster.path' | translate }}: /path/to/logs</td>
                     </tr>
                     </tbody>
                 </table>

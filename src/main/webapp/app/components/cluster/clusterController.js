@@ -3,6 +3,12 @@ webApp.controller("clusterController", ['$scope', '$routeParams', '$rootScope', 
         var promiseClusterState = clustersService.getClusterState( clusterName );
         promiseClusterState.then( function(value) {
             $scope.clusterState = value;
+        },
+        function(value) {
+            $rootScope.error = {
+                isError: true,
+                message: value.message
+            }
         });
     }
 

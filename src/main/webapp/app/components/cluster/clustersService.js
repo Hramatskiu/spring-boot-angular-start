@@ -19,7 +19,7 @@ webApp.factory('clustersService',['$http', '$q', function ($http, $q) {
                     deferred.resolve(response.data);
                 },
                 function(response) {
-                    deferred.reject(response.status);
+                    deferred.reject(response.data);
                 });
 
             return deferred.promise;

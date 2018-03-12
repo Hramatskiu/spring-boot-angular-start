@@ -20,7 +20,7 @@
 		<frontend-maven-plugin.version>1.6</frontend-maven-plugin.version>
 		<org.springframework.boot>2.0.0.RELEASE</org.springframework.boot>
 		<maven-compiler-plugin.version>3.6.2</maven-compiler-plugin.version>
-		<org.springframework.security.version>5.0.0.RELEASE</org.springframework.security.version>
+		<org.springframework.security.version>5.0.3.RELEASE</org.springframework.security.version>
 		<hadoop.version>2.7.3</hadoop.version>
 	</properties>
 
@@ -128,7 +128,6 @@
 
 	<build>
 		<plugins>
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>

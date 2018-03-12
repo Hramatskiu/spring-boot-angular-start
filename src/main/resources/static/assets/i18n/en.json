@@ -22,7 +22,11 @@
         "action": "Action",
         "state": "State",
         "service": "Service",
-        "edit": "Edit cluster"
+        "edit": "Edit cluster",
+        "logs": "Logs location",
+        "path": "Path",
+        "disk": "Disk",
+        "memory": "Memory"
       },
       "service": {
         "yarn": {
@@ -34,8 +38,13 @@
             "list": "Application list",
             "user": "User",
             "startTime": "Start time"
-          }
+          },
+          "apps": "Applications"
         }
+      },
+      "common": {
+        "danger": "Danger!",
+        "no_problems": "No problems detected"
       }
     },
     "placeholder": {

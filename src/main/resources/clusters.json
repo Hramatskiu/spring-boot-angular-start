@@ -3,52 +3,52 @@
     "cluster": {
       "name": "CDH513Unsecure",
       "host": "svqxbdcn6cdh513n1.pentahoqa.com",
-      "type": "cdh",
+      "clusterType": "CDH",
       "secured": false
     },
     "http": {
-      "username": "admin",
-      "password": "admin"
+      "username": "*****",
+      "password": "*****"
     },
     "ssh": {
-      "username": "devuser",
-      "password": "password"
+      "username": "*****",
+      "password": "*****"
     }
   },
   {
     "cluster": {
       "name": "CDH512Unsecure",
       "host": "svqxbdcn6cdh512n1.pentahoqa.com",
-      "type": "cdh",
+      "clusterType": "CDH",
       "secured": false
     },
     "http": {
-      "username": "admin",
-      "password": "admin"
+      "username": "*****",
+      "password": "*****"
     },
     "ssh": {
-      "username": "devuser",
-      "password": "password"
+      "username": "*****",
+      "password": "*****"
     }
   },
   {
     "cluster": {
       "name": "CDH513Secure2",
       "host": "svqxbdcn6cdh513sn1.pentahoqa.com",
-      "type": "cdh",
+      "clusterType": "CDH",
       "secured": true
     },
     "http": {
-      "username": "admin",
-      "password": "admin"
+      "username": "*****",
+      "password": "*****"
     },
     "ssh": {
-      "username": "devuser",
-      "password": "password"
+      "username": "*****",
+      "password": "*****"
     },
     "kerberos": {
-      "username": "devuser@PENTAHOQA.COM",
-      "password": "password"
+      "username": "*****@EXAMPLE.COM",
+      "password": "*****"
     }
   }
 ]
