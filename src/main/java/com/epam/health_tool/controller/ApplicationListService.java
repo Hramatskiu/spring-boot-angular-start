@@ -19,6 +19,7 @@ import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,6 +43,7 @@ public class ApplicationListService {
     @Autowired
     private Authenticator authenticator;
 
+    @CrossOrigin( origins = "http://localhost:4200" )
     @RequestMapping("/getApplicationList")
     public List<YarnApplicationCdh> greeting(@RequestParam(value = "clusterName", required = false, defaultValue = "cdh513") String clusterName, Model model) throws CommonUtilException, IOException, AuthenticationException, ClusterNotFoundException {
         ClusterCredentials clusterCredentials = clusterFacade.readClusterCredentials(clusterName);
@@ -60,6 +62,7 @@ public class ApplicationListService {
         return yarnApplicationCdhs;
     }
 
+    @CrossOrigin( origins = "http://localhost:4200" )
     @RequestMapping("/killApplication")
     public boolean killApplication(@RequestParam(value = "clusterName", required = false, defaultValue = "cdh513") String clusterName,
                                    @RequestParam(value = "applicationId", required = false, defaultValue = "cdh513") String applicationId)

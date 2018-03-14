@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,6 +42,7 @@ public class ClusterHealthCheckService {
     @Autowired
     private Authenticator authenticator;
 
+    @CrossOrigin( origins = "http://localhost:4200" )
     @RequestMapping("/getClusterStatus")
     public ClusterServicesStatus greeting(@RequestParam(value = "clusterName", required = false, defaultValue = "cdh513") String clusterName, Model model) throws CommonUtilException, IOException, AuthenticationException, ClusterNotFoundException {
         ClusterCredentials clusterCredentials = clusterFacade.readClusterCredentials(clusterName);
